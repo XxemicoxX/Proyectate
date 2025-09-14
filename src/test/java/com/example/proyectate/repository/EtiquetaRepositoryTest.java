@@ -2,8 +2,8 @@ package com.example.proyectate.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.proyectate.feature.etiqueta.Etiqueta;
-import com.example.proyectate.feature.etiqueta.EtiquetaRepository;
+import com.example.proyectate.feature.etiquetas.Etiqueta;
+import com.example.proyectate.feature.etiquetas.EtiquetaRepository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +24,11 @@ public class EtiquetaRepositoryTest {
         Etiqueta etiqueta = new Etiqueta();
         etiqueta.setNombre("programacion");
         Etiqueta guardar = etiquetaRepository.save(etiqueta);
-        assertThat(guardar.getId_etiqueta()).isNotNull();
+        assertThat(guardar.getId()).isNotNull();
         assertThat(guardar.getNombre()).isEqualTo("programacion");
 
         //buscar la etiqueta por id, verificar que este presente y que su nombre sea "programacion"
-        Optional<Etiqueta> encontrar = etiquetaRepository.findById(guardar.getId_etiqueta());
+        Optional<Etiqueta> encontrar = etiquetaRepository.findById(guardar.getId());
         assertThat(encontrar).isPresent();
         assertThat(encontrar.get().getNombre()).isEqualTo("programacion");
 
@@ -36,12 +36,12 @@ public class EtiquetaRepositoryTest {
         Etiqueta actualizar = encontrar.get();
         actualizar.setNombre("documentacion");
         etiquetaRepository.save(actualizar);
-        Etiqueta actualizado = etiquetaRepository.findById(guardar.getId_etiqueta()).get();
+        Etiqueta actualizado = etiquetaRepository.findById(guardar.getId()).get();
         assertThat(actualizado.getNombre()).isEqualTo("documentacion");
 
         //eliminar la etiqueta por id y verificar que ya no este presente uwu
-        etiquetaRepository.deleteById(actualizado.getId_etiqueta());
-        Optional<Etiqueta> eliminado = etiquetaRepository.findById(actualizado.getId_etiqueta());
+        etiquetaRepository.deleteById(actualizado.getId());
+        Optional<Etiqueta> eliminado = etiquetaRepository.findById(actualizado.getId());
         assertThat(eliminado).isNotPresent();
 
     }
