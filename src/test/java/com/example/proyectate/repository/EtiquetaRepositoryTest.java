@@ -19,7 +19,7 @@ public class EtiquetaRepositoryTest {
     private EtiquetaRepository etiquetaRepository;
 
     @Test
-    public void testCrudEtiquetas() {
+    public void testCrudEtiquetas() throws Exception{
         //insertara "programacion", lo guardara y luego verficiara que nosea nulo y comparara isEqualTo("programacion") 
         Etiqueta etiqueta = new Etiqueta();
         etiqueta.setNombre("programacion");

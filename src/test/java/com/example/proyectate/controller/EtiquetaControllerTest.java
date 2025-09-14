@@ -7,6 +7,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.jupiter.api.Test;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @SpringBootTest
@@ -15,7 +18,8 @@ public class EtiquetaControllerTest {
     
     @Autowired
     private MockMvc mockMvc;
-
+    
+    @Test
     public void getEtiquetasTest() throws Exception {
         mockMvc.perform(get("/api/etiquetas"))
                .andExpect(status().isOk()) // tiene q devolver 200 ok
