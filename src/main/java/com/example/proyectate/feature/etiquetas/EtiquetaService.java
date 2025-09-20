@@ -10,22 +10,41 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class EtiquetaService {
-    @Autowired
-    private EtiquetaRepository repository;
-
-    public List<Etiqueta> selectAll() {
-        return repository.findAll();
-    }
-
-    public Etiqueta selectOne(Long id) {
-        return repository.findById(id).orElse(null);
-    }
     
-    public Etiqueta update (Etiqueta etiqueta) {
-        return repository.save(etiqueta);
+    private final EtiquetaRepository etiquetaRepository;
+    private final EtiquetaMapper etiquetaMapper;
+
+    public List<EtiquetaReaderDTO> getAllEtiquetas(){
+        return etiquetaRepository.findAll().stream().map(etiquetaMapper::toDto).toList();
     }
-    
-    public void delete (Long id) {
-        repository.deleteById(id);
+
+    public EtiquetaReaderDTO getEtiquetaById(Long id){
+        return etiquetaMapper.toDto(etiquetaRepository.findById(id).orElseThrow());
     }
+
+    public EtiquetaReaderDTO addEtiqueta(EtiquetaWriterDTO etiqueta){
+       return save(etiqueta);
+    }
+
+    public EtiquetaReaderDTO updEtiqueta(EtiquetaWriterDTO etiqueta) throws Exception{
+        if (!etiquetaRepository.existsById(etiqueta.id())) {
+            throw new Exception("ID no encontrado");
+        }
+        return save(etiqueta);
+    }
+
+    public String deleteEtiqueta(Long id) throws Exception{
+        if (!etiquetaRepository.existsById(id)) {
+            throw new Exception("ID no encontrado");
+        }
+        etiquetaRepository.deleteById(id);
+        return String.format("Etiqueta eliminada con el ID: %d", id);
+    }
+
+
+    //metodo guardar
+    private EtiquetaReaderDTO save(EtiquetaWriterDTO etiqueta){
+        return etiquetaMapper.toDto(etiquetaRepository.save(etiquetaMapper.toEntity(etiqueta)));
+    }
+
 }
