@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 
 public record EtiquetaWriterDTO (
     Long id,
-    @NotBlank
+    @NotBlank(message = "Debes ingresar el nombre")
     @Size(max = 15)
     String nombre
 ) {
