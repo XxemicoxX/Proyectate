@@ -1,4 +1,4 @@
-package com.example.proyectate.feature.etiquetas;
+package com.example.proyectate.feature.proyectos;
 
 import java.util.List;
 
@@ -9,23 +9,24 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class EtiquetaService {
+public class ProyectoService {
     @Autowired
-    private final EtiquetaRepository repository;
+    private final ProyectoRepository repository;
 
-    public List<Etiqueta> selectAll() {
+    public List<Proyecto> selectAll() {
         return repository.findAll();
     }
 
-    public Etiqueta selectOne(Long id) {
+    public Proyecto selectOne (Long id) {
         return repository.findById(id).orElse(null);
     }
-    
-    public Etiqueta update (Etiqueta etiqueta) {
-        return repository.save(etiqueta);
+
+    public Proyecto update (Proyecto proyecto) {
+        return repository.save(proyecto);
     }
-    
+
     public void delete (Long id) {
         repository.deleteById(id);
     }
+
 }

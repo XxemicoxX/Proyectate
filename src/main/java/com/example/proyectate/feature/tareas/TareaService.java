@@ -1,4 +1,4 @@
-package com.example.proyectate.feature.etiquetas;
+package com.example.proyectate.feature.tareas;
 
 import java.util.List;
 
@@ -9,23 +9,24 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class EtiquetaService {
+public class TareaService {
     @Autowired
-    private final EtiquetaRepository repository;
+    private final TareaRepository repository;
 
-    public List<Etiqueta> selectAll() {
+    public List<Tarea> selectAll() {
         return repository.findAll();
     }
 
-    public Etiqueta selectOne(Long id) {
+    public Tarea selectOne (Long id) {
         return repository.findById(id).orElse(null);
     }
-    
-    public Etiqueta update (Etiqueta etiqueta) {
-        return repository.save(etiqueta);
+
+    public Tarea update (Tarea tarea) {
+        return repository.save(tarea);
     }
-    
+
     public void delete (Long id) {
         repository.deleteById(id);
     }
+
 }

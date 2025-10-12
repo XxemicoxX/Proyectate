@@ -1,4 +1,4 @@
-package com.example.proyectate.feature.etiquetas;
+package com.example.proyectate.feature.comentarios;
 
 import java.util.List;
 
@@ -9,23 +9,24 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class EtiquetaService {
+public class ComentarioService {
     @Autowired
-    private final EtiquetaRepository repository;
+    private final ComentarioRepository repository;
 
-    public List<Etiqueta> selectAll() {
+    public List<Comentario> selectAll() {
         return repository.findAll();
     }
 
-    public Etiqueta selectOne(Long id) {
+    public Comentario selectOne (Long id) {
         return repository.findById(id).orElse(null);
     }
-    
-    public Etiqueta update (Etiqueta etiqueta) {
-        return repository.save(etiqueta);
+
+    public Comentario update (Comentario comentario) {
+        return repository.save(comentario);
     }
-    
+
     public void delete (Long id) {
         repository.deleteById(id);
     }
+
 }

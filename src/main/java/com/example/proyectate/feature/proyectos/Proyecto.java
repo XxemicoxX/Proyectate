@@ -1,6 +1,6 @@
 package com.example.proyectate.feature.proyectos;
 
-import com.example.proyectate.feature.usuarios.Usuario;
+import com.example.proyectate.feature.usuarios.Usuarios;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,5 +24,5 @@ public class Proyecto {
     private String descripcion;
     @ManyToOne
     @JoinColumn (name = "id_usuario")
-    private Usuario usuario;
+    private Usuarios usuario;
 }

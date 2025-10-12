@@ -3,7 +3,7 @@ package com.example.proyectate.feature.comentarios;
 import java.time.LocalDate;
 
 import com.example.proyectate.feature.tareas.Tarea;
-import com.example.proyectate.feature.usuarios.Usuario;
+import com.example.proyectate.feature.usuarios.Usuarios;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,7 +28,7 @@ public class Comentario {
     private LocalDate fecha_creacion;
     @ManyToOne
     @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
+    private Usuarios usuario;
     @ManyToOne
     @JoinColumn(name = "id_tarea")
     private Tarea tarea;
