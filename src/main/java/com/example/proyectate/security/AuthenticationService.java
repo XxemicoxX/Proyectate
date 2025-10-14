@@ -11,7 +11,7 @@ import com.example.proyectate.util.AuthenticationRequest;
 import com.example.proyectate.util.AuthenticationResponse;
 import com.example.proyectate.util.RefreshTokenRequest;
 import com.example.proyectate.util.RegisterRequest;
-import com.example.proyectate.util.Role;
+import com.example.proyectate.util.RolSistema;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +28,7 @@ public class AuthenticationService {
                                 .nombre(request.name())
                                 .email(request.email())
                                 .contrasena(passwordEncoder.encode(request.contrasena()))
-                                .rol(Role.USER)
+                                .rol(RolSistema.USUARIO)
                                 .build();
                 userRepository.save(user);
                 

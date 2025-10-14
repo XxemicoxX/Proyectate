@@ -1,6 +1,6 @@
 package com.example.proyectate.feature.usuarios;
 
-import com.example.proyectate.util.Role;
+import com.example.proyectate.util.RolSistema;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Usuarios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,5 +25,6 @@ public class Usuarios {
     @Column(nullable = false)
     private String contrasena;
     @Enumerated(EnumType.STRING)
-    private Role rol;
+    @Column(nullable = false)
+    private RolSistema rol;
 }

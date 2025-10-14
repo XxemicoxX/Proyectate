@@ -2,31 +2,59 @@ package com.example.proyectate.feature.proyectos;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.proyectate.feature.usuarios.Usuarios;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class ProyectoService {
-    @Autowired
-    private final ProyectoRepository repository;
+    private final ProyectoRepository proyectoRepository;
+    private final ProyectoMapper proyectoMapper;
 
-    public List<Proyecto> selectAll() {
-        return repository.findAll();
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public List<ProyectoReaderDTO> getAllProyectos(){
+        return proyectoRepository.findAll().stream().map(proyectoMapper::toDto).toList();
     }
 
-    public Proyecto selectOne (Long id) {
-        return repository.findById(id).orElse(null);
+    public ProyectoReaderDTO getProyectoById(Long id){
+        return proyectoMapper.toDto(proyectoRepository.findById(id).orElseThrow());
     }
 
-    public Proyecto update (Proyecto proyecto) {
-        return repository.save(proyecto);
+    @Transactional
+    public ProyectoReaderDTO addProyecto(ProyectoWriterDTO proyecto){
+       return save(proyecto);
     }
 
-    public void delete (Long id) {
-        repository.deleteById(id);
+    @Transactional
+    public ProyectoReaderDTO updProyecto(ProyectoWriterDTO proyecto) throws Exception{
+        if (!proyectoRepository.existsById(proyecto.id())) {
+            throw new Exception("ID no encontrado");
+        }
+        return save(proyecto);
     }
 
+    @Transactional
+    public String deleteProyecto(Long id) throws Exception{
+        if (!proyectoRepository.existsById(id)) {
+            throw new Exception("ID no encontrado");
+        }
+        proyectoRepository.deleteById(id);
+        return String.format("proyecto eliminada con el ID: %d", id);
+    }
+
+    //metodo guardar
+    private ProyectoReaderDTO save(ProyectoWriterDTO proyectoDTO){
+        Proyecto proyecto = proyectoMapper.toEntity(proyectoDTO);
+        Usuarios usuarioRef = entityManager.getReference(Usuarios.class, proyectoDTO.idUsuario());
+        proyecto.setIdUsuario(usuarioRef);
+        return proyectoMapper.toDto(proyectoRepository.save(proyecto));
+    }
 }

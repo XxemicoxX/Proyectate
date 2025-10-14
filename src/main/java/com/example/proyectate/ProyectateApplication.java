@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.proyectate.feature.usuarios.Usuarios;
-import com.example.proyectate.util.Role;
+import com.example.proyectate.util.RolSistema;
 import com.example.proyectate.feature.usuarios.UsuarioRepository;
 
 @SpringBootApplication
@@ -25,7 +25,7 @@ public class ProyectateApplication {
 				user.setNombre("admin");
 				user.setEmail("admin@mail.com");
 				user.setContrasena(encoder.encode("123456"));
-				user.setRol(Role.ADMIN);
+				user.setRol(RolSistema.ADMINISTRADOR);
 				repository.save(user);
 			}
 		};
