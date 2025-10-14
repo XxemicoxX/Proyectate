@@ -42,6 +42,24 @@ public class TareaApiController {
        }
     }
 
+    @GetMapping("/titulo/{titulo}")
+    public ResponseEntity<List<TareaReaderDTO>> getTitulo(@PathVariable String titulo) {
+       try {
+         return ResponseEntity.ok(tareaService.getTareaByTitulo(titulo));
+       } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+       }
+    }
+
+    @GetMapping("/prioridad/{prioridad}")
+    public ResponseEntity<List<TareaReaderDTO>> getPrioridad(@PathVariable String prioridad) {
+       try {
+         return ResponseEntity.ok(tareaService.getTareaByPrioridad(prioridad));
+       } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+       }
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TareaReaderDTO> insertTarea(@Valid @RequestBody TareaWriterDTO tarea){
        try {

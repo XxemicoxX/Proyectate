@@ -29,6 +29,18 @@ public class TareaService {
         return tareaMapper.toDto(tareaRepository.findById(id).orElseThrow());
     }
 
+    public List<TareaReaderDTO> getTareaByTitulo(String titulo){
+        return tareaRepository.findByTitulo(titulo)
+        .stream()
+        .map(tareaMapper::toDto).toList();
+    }
+
+   public List<TareaReaderDTO> getTareaByPrioridad(String prioridad){
+        return tareaRepository.findByPrioridad(prioridad)
+        .stream()
+        .map(tareaMapper::toDto).toList();
+    }
+
     @Transactional
     public TareaReaderDTO addTarea(TareaWriterDTO tarea){
        return save(tarea);
