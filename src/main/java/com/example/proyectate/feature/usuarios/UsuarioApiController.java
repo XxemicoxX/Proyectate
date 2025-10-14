@@ -22,52 +22,56 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("api/usuarios")
 @RequiredArgsConstructor
 public class UsuarioApiController {
-    private final UsuarioService usuarioService;
+     private final UsuarioService usuarioService;
 
-    @GetMapping()
-    public ResponseEntity<List<UsuarioReaderDTO>> getAll() {
-       List<UsuarioReaderDTO> usuarios = usuarioService.getAllUsuarios();
-       if (usuarios.isEmpty()) {
-        throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No hay usuarios registrados");
-       }
-       return ResponseEntity.ok(usuarios);
-    }
+     @GetMapping()
+     public ResponseEntity<List<UsuarioReaderDTO>> getAll() {
+          List<UsuarioReaderDTO> usuarios = usuarioService.getAllUsuarios();
+          if (usuarios.isEmpty()) {
+               throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No hay usuarios registrados");
+          }
+          return ResponseEntity.ok(usuarios);
+     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UsuarioReaderDTO> getOne(@PathVariable Long id) {
-       try {
-         return ResponseEntity.ok(usuarioService.getUsuarioById(id));
-       } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-       }
-    }
+     @GetMapping("/{id}")
+     public ResponseEntity<UsuarioReaderDTO> getOne(@PathVariable Long id) {
+          try {
+               return ResponseEntity.ok(usuarioService.getUsuarioById(id));
+          } catch (Exception e) {
+               throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+          }
+     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UsuarioReaderDTO> insertUsuario(@Valid @RequestBody UsuarioWriterDTO usuario){
-       try {
-            return ResponseEntity.ok(usuarioService.addUsuario(usuario));
-       } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-       }
-    }
+     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+     public ResponseEntity<UsuarioReaderDTO> insertUsuario(@Valid @RequestBody UsuarioWriterDTO usuario) {
+          try {
+               return ResponseEntity.ok(usuarioService.addUsuario(usuario));
+          } catch (Exception e) {
+               throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+          }
+     }
 
+     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+     public ResponseEntity<UsuarioReaderDTO> updateUsuario(@Valid @RequestBody UsuarioWriterDTO usuario) {
+          try {
+               return ResponseEntity.ok(usuarioService.updUsuario(usuario));
+          } catch (Exception e) {
+               throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+          }
+     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UsuarioReaderDTO> updateUsuario(@Valid @RequestBody UsuarioWriterDTO usuario){
-       try {
-            return ResponseEntity.ok(usuarioService.updUsuario(usuario));
-       } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-       }
-    }   
+     @DeleteMapping("/{id}")
+     public ResponseEntity<String> deleteUsuario(@PathVariable Long id) {
+          try {
+               usuarioService.deleteUsuario(id);
+               return ResponseEntity.ok("Usuario eliminado");
+          } catch (Exception e) {
+               throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+          }
+     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUsuario(@PathVariable Long id) {
-        try {
-             usuarioService.deleteUsuario(id);
-             return ResponseEntity.ok("Usuario eliminado");
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
-        }
-    }
+     @GetMapping("/test-error")
+     public void testError() {
+          throw new RuntimeException("Error 500 de prueba");
+     }
 }
