@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
 
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USUARIO')")
     public String sayHello() {
-        return "Hello from secured endpoint";
+        return "Hello USUARIO from secured endpoint";
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMINISTRADOR')")
     public String sayHelloAdmin() {
-        return "Hello admin from secured endpoint";
+        return "Hello ADMINISTRADOR from secured endpoint";
     }
 }

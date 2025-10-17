@@ -1,10 +1,6 @@
 package com.example.proyectate.feature.usuarios;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -13,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UsuarioService {
 
-      
     private final UsuarioRepository usuarioRepository;
     private final UsuarioMapper usuarioMapper;
 
