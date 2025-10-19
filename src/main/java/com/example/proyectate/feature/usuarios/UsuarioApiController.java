@@ -74,4 +74,6 @@ public class UsuarioApiController {
      public void testError() {
           throw new RuntimeException("Error 500 de prueba");
      }
+
+     
 }

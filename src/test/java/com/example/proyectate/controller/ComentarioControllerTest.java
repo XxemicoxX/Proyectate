@@ -34,7 +34,7 @@ public class ComentarioControllerTest {
                     "contenido": "mejorar la descripcion",
                     "fecha_creacion": "2025-12-31",
                     "usuario_id": 2,
-                    "tarea_id": 1
+                    "tarea_id": 4
                 }
                                 """;
         mockMvc.perform(post("/api/comentarios")
@@ -52,7 +52,7 @@ public class ComentarioControllerTest {
                         "contenido": "Mejorar la descripcion",
                         "fecha_creacion": "2025-12-31",
                         "usuario_id": 2,
-                        "tarea_id": 1
+                        "tarea_id": 4
                     }
                 """;
         mockMvc.perform(put("/api/comentarios")

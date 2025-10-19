@@ -65,7 +65,7 @@ public class UsuarioControllerTest {
 
     @Test
     public void deleteUsuarioReturnok() throws Exception {
-        mockMvc.perform(delete("/api/usuarios/3"))
+        mockMvc.perform(delete("/api/usuarios/1"))
             .andExpect(status().isOk());
     }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -25,10 +26,12 @@ public class ComentarioService {
         return comentarioMapper.toDto(comentarioRepository.findById(id).orElseThrow());
     }
 
+    @Transactional
     public ComentarioReaderDTO addComentario(ComentarioWriterDTO comentario){
        return save(comentario);
     }
 
+    @Transactional
     public ComentarioReaderDTO updComentario(ComentarioWriterDTO comentario) throws Exception{
         if (!comentarioRepository.existsById(comentario.id())) {
             throw new Exception("ID no encontrado");
@@ -36,6 +39,7 @@ public class ComentarioService {
         return save(comentario);
     }
 
+    @Transactional
     public String deleteComentario(Long id) throws Exception{
         if (!comentarioRepository.existsById(id)) {
             throw new Exception("ID no encontrado");

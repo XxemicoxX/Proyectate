@@ -66,7 +66,7 @@ public class ProyectoControllerTest {
 
     @Test
     public void deleteProyectoReturnok() throws Exception {
-        mockMvc.perform(delete("/api/proyectos/2"))
+        mockMvc.perform(delete("/api/proyectos/1"))
             .andExpect(status().isOk());
     }
 

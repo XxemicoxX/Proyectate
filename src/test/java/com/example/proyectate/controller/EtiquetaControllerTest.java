@@ -32,7 +32,7 @@ public class EtiquetaControllerTest {
     public void insertEtiquetaReturnsOk() throws Exception {
         String json = """
                     {
-                        "nombre": "Documentacion"
+                        "nombre": "programacion"
                     }
                 """;
         mockMvc.perform(post("/api/etiquetas")
@@ -59,7 +59,7 @@ public class EtiquetaControllerTest {
 
     @Test
     public void deleteEtiquetaReturnsOk() throws Exception{
-        mockMvc.perform(delete("/api/etiquetas/3"))
+        mockMvc.perform(delete("/api/etiquetas/1"))
                 .andExpect(status().isOk());
     }
 }
