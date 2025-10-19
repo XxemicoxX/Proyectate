@@ -37,7 +37,7 @@ public class TareaControllerTest {
                     "prioridad": "Alta",
                     "estado": "Pendiente",
                     "id_proyecto": 1,
-                    "id_etiqueta": 2
+                    "id_etiqueta": 1
                 }
                                 """;
         mockMvc.perform(post("/api/tareas")
@@ -51,13 +51,13 @@ public class TareaControllerTest {
     public void updateTareaReturnsOk() throws Exception {
         String json = """
                     {
-                        "id": 2,
+                        "id": 4,
                         "titulo": "Nuevo modulo de ropa",
                         "descripcion": "Agregar seccion para pantalones",
                         "prioridad": "Alta",
                         "estado": "En proceso",
                         "id_proyecto": 1,
-                        "id_etiqueta": 2
+                        "id_etiqueta": 1
                     }
                 """;
         mockMvc.perform(put("/api/tareas")
@@ -69,7 +69,7 @@ public class TareaControllerTest {
 
     @Test
     public void deleteTareaReturnsOk() throws Exception {
-        mockMvc.perform(delete("/api/tareas/2"))
+        mockMvc.perform(delete("/api/tareas/4"))
                 .andExpect(status().isOk());
     }
 }
