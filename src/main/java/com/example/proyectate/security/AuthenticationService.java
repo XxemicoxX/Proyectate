@@ -5,8 +5,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.proyectate.feature.usuarios.UsuarioRepository;
-import com.example.proyectate.feature.usuarios.Usuarios;
+import com.example.proyectate.feature.users.UserRepository;
+import com.example.proyectate.feature.users.User;
 import com.example.proyectate.util.AuthenticationRequest;
 import com.example.proyectate.util.AuthenticationResponse;
 import com.example.proyectate.util.RefreshTokenRequest;
@@ -18,17 +18,17 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-        private final UsuarioRepository userRepository;
+        private final UserRepository userRepository;
         private final PasswordEncoder passwordEncoder;
         private final JwtService jwtService;
         private final AuthenticationManager authenticationManager;
 
         public AuthenticationResponse register(RegisterRequest request) {
-                var user = Usuarios.builder()
-                                .nombre(request.name())
+                var user = User.builder()
+                                .name(request.name())
                                 .email(request.email())
-                                .contrasena(passwordEncoder.encode(request.contrasena()))
-                                .rol(RolSistema.USUARIO)
+                                .password(passwordEncoder.encode(request.password()))
+                                .rol(RolSistema.USER)
                                 .build();
                 userRepository.save(user);
                 

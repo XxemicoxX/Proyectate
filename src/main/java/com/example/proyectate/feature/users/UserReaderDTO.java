@@ -1,8 +1,8 @@
-package com.example.proyectate.feature.usuarios;
+package com.example.proyectate.feature.users;
 
 import com.example.proyectate.util.RolSistema;
 
-public record UsuarioReaderDTO (
+public record UserReaderDTO (
      Long id,
      String nombre,
      String email,

@@ -1,23 +1,25 @@
-package com.example.proyectate.security;
+package com.example.proyectate.api;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
-@RequestMapping("/api/v1/demo")
+@RequestMapping("demo")
 public class DemoController {
 
     @GetMapping
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("user")
     public String sayHello() {
         return "Hello from secured endpoint";
     }
 
-    @GetMapping("/admin")
+    @GetMapping("admin")
     @PreAuthorize("hasRole('ADMIN')")
     public String sayHelloAdmin() {
         return "Hello admin from secured endpoint";
     }
+    
 }

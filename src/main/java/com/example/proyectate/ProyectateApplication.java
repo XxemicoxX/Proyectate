@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.example.proyectate.feature.usuarios.Usuarios;
+import com.example.proyectate.feature.users.UserRepository;
+import com.example.proyectate.feature.users.User;
 import com.example.proyectate.util.RolSistema;
-import com.example.proyectate.feature.usuarios.UsuarioRepository;
 
 @SpringBootApplication
 public class ProyectateApplication {
@@ -18,14 +18,14 @@ public class ProyectateApplication {
 	}
 
 	@Bean //Pasamos el "PasswordEncoder encoder" cómo parámetro para que esté inicializado
-	CommandLineRunner createDefaultUsers(UsuarioRepository repository, PasswordEncoder encoder) {
+	CommandLineRunner createDefaultUsers(UserRepository repository, PasswordEncoder encoder) {
 		return args -> {
 			if (repository.findByEmail("admin@mail.com").isEmpty()) {
-				Usuarios user = new Usuarios();
-				user.setNombre("admin");
+				User user = new User();
+				user.setName("admin");
 				user.setEmail("admin@mail.com");
-				user.setContrasena(encoder.encode("123456"));
-				user.setRol(RolSistema.ADMINISTRADOR);
+				user.setPassword(encoder.encode("123456"));
+				user.setRol(RolSistema.ADMIN);
 				repository.save(user);
 			}
 		};

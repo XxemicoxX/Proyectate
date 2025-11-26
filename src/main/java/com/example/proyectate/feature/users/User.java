@@ -1,4 +1,4 @@
-package com.example.proyectate.feature.usuarios;
+package com.example.proyectate.feature.users;
 
 import com.example.proyectate.util.RolSistema;
 
@@ -13,17 +13,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuarios {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
     private Long id;
     @Column(nullable = false, length = 50)
-    private String nombre;
+    private String name;
     @Column(nullable = false, length = 50, unique = true)
     private String email;
     @Column(nullable = false)
-    private String contrasena;
+    private String password;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RolSistema rol;

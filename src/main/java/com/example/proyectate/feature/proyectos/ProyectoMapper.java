@@ -2,7 +2,7 @@ package com.example.proyectate.feature.proyectos;
 
 import org.springframework.stereotype.Component;
 
-import com.example.proyectate.feature.usuarios.Usuarios;
+import com.example.proyectate.feature.users.User;
 import com.example.proyectate.util.Mapper;
 
 @Component
@@ -14,7 +14,7 @@ public class ProyectoMapper implements Mapper<Proyecto, ProyectoWriterDTO, Proye
         .id(dto.id())
         .nombre(dto.nombre())
         .descripcion(dto.descripcion())
-        .idUsuario(Usuarios.builder().id(dto.id()).build())
+        .idUsuario(User.builder().id(dto.id()).build())
         .build();
     }
 

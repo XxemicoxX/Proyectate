@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.proyectate.feature.usuarios.Usuarios;
+import com.example.proyectate.feature.users.User;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public class CustomUserDetail implements UserDetails{
-    private final Usuarios user;
+    private final User user;
 
     //************ "ROLE_"
     @Override
@@ -25,7 +25,7 @@ public class CustomUserDetail implements UserDetails{
 
     @Override
     public String getPassword() {
-        return user.getContrasena();
+        return user.getPassword();
     }
 
     @Override

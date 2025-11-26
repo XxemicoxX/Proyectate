@@ -1,47 +1,45 @@
-package com.example.proyectate.feature.usuarios;
+package com.example.proyectate.feature.users;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UsuarioService {
-
-      
-    private final UsuarioRepository usuarioRepository;
-    private final UsuarioMapper usuarioMapper;
+public class UserService {
+    
+    private final UserRepository usuarioRepository;
+    private final UserMapper usuarioMapper;
 
     //Buscar Email
-    public Usuarios getUserByEmail (String email) {
+    public User getUserByEmail (String email) {
         return usuarioRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
   
-    public List<UsuarioReaderDTO> getAllUsuarios(){
+    public List<UserReaderDTO> getAllUsers(){
         return usuarioRepository.findAll().stream().map(usuarioMapper::toDto).toList();
     }
 
-    public UsuarioReaderDTO getUsuarioById(Long id){
+    public UserReaderDTO getUserById(Long id){
         return usuarioMapper.toDto(usuarioRepository.findById(id).orElseThrow());
     }
 
-    public UsuarioReaderDTO addUsuario(UsuarioWriterDTO usuario){
+    public UserReaderDTO addUser(UserWriterDTO usuario){
        return save(usuario);
     }
 
-    public UsuarioReaderDTO updUsuario(UsuarioWriterDTO usuario) throws Exception{
+    public UserReaderDTO updUser(UserWriterDTO usuario) throws Exception{
         if (!usuarioRepository.existsById(usuario.id())) {
             throw new Exception("ID no encontrado");
         }
         return save(usuario);
     }
 
-    public String deleteUsuario(Long id) throws Exception{
+    public String deleteUser(Long id) throws Exception{
         if (!usuarioRepository.existsById(id)) {
             throw new Exception("ID no encontrado");
         }
@@ -51,7 +49,7 @@ public class UsuarioService {
 
 
     //metodo guardar
-    private UsuarioReaderDTO save(UsuarioWriterDTO usuario){
+    private UserReaderDTO save(UserWriterDTO usuario){
         return usuarioMapper.toDto(usuarioRepository.save(usuarioMapper.toEntity(usuario)));
     }
 

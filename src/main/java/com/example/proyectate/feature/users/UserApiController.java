@@ -1,4 +1,4 @@
-package com.example.proyectate.feature.usuarios;
+package com.example.proyectate.feature.users;
 
 import java.util.List;
 
@@ -19,14 +19,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("api/usuarios")
+@RequestMapping("users")
 @RequiredArgsConstructor
-public class UsuarioApiController {
-     private final UsuarioService usuarioService;
+public class UserApiController {
+     private final UserService userService;
 
      @GetMapping()
-     public ResponseEntity<List<UsuarioReaderDTO>> getAll() {
-          List<UsuarioReaderDTO> usuarios = usuarioService.getAllUsuarios();
+     public ResponseEntity<List<UserReaderDTO>> getAll() {
+          List<UserReaderDTO> usuarios = userService.getAllUsers();
           if (usuarios.isEmpty()) {
                throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No hay usuarios registrados");
           }
@@ -34,27 +34,27 @@ public class UsuarioApiController {
      }
 
      @GetMapping("/{id}")
-     public ResponseEntity<UsuarioReaderDTO> getOne(@PathVariable Long id) {
+     public ResponseEntity<UserReaderDTO> getOne(@PathVariable Long id) {
           try {
-               return ResponseEntity.ok(usuarioService.getUsuarioById(id));
+               return ResponseEntity.ok(userService.getUserById(id));
           } catch (Exception e) {
                throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
           }
      }
 
      @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-     public ResponseEntity<UsuarioReaderDTO> insertUsuario(@Valid @RequestBody UsuarioWriterDTO usuario) {
+     public ResponseEntity<UserReaderDTO> insertUsuario(@Valid @RequestBody UserWriterDTO usuario) {
           try {
-               return ResponseEntity.ok(usuarioService.addUsuario(usuario));
+               return ResponseEntity.ok(userService.addUser(usuario));
           } catch (Exception e) {
                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
           }
      }
 
      @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-     public ResponseEntity<UsuarioReaderDTO> updateUsuario(@Valid @RequestBody UsuarioWriterDTO usuario) {
+     public ResponseEntity<UserReaderDTO> updateUsuario(@Valid @RequestBody UserWriterDTO usuario) {
           try {
-               return ResponseEntity.ok(usuarioService.updUsuario(usuario));
+               return ResponseEntity.ok(userService.updUser(usuario));
           } catch (Exception e) {
                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
           }
@@ -63,7 +63,7 @@ public class UsuarioApiController {
      @DeleteMapping("/{id}")
      public ResponseEntity<String> deleteUsuario(@PathVariable Long id) {
           try {
-               usuarioService.deleteUsuario(id);
+               userService.deleteUser(id);
                return ResponseEntity.ok("Usuario eliminado");
           } catch (Exception e) {
                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());

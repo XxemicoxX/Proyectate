@@ -5,15 +5,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.example.proyectate.feature.usuarios.UsuarioService;
+import com.example.proyectate.feature.users.UserService;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CustomUserDetailService implements UserDetailsService{
+public class CustomUserService implements UserDetailsService{
 
-    private final UsuarioService service;
+    private final UserService service;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

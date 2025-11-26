@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.proyectate.feature.usuarios.Usuarios;
+import com.example.proyectate.feature.users.User;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -53,7 +53,7 @@ public class ProyectoService {
     //metodo guardar
     private ProyectoReaderDTO save(ProyectoWriterDTO proyectoDTO){
         Proyecto proyecto = proyectoMapper.toEntity(proyectoDTO);
-        Usuarios usuarioRef = entityManager.getReference(Usuarios.class, proyectoDTO.idUsuario());
+        User usuarioRef = entityManager.getReference(User.class, proyectoDTO.idUsuario());
         proyecto.setIdUsuario(usuarioRef);
         return proyectoMapper.toDto(proyectoRepository.save(proyecto));
     }

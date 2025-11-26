@@ -3,7 +3,7 @@ package com.example.proyectate.feature.comentarios;
 import org.springframework.stereotype.Component;
 
 import com.example.proyectate.feature.tareas.Tarea;
-import com.example.proyectate.feature.usuarios.Usuarios;
+import com.example.proyectate.feature.users.User;
 import com.example.proyectate.util.Mapper;
 
 @Component
@@ -15,7 +15,7 @@ public class ComentarioMapper implements Mapper<Comentario, ComentarioWriterDTO,
             .id(dto.id())
             .contenido(dto.contenido())
             .fecha_creacion(dto.fechaCreacion())
-            .usuario(Usuarios.builder().id(dto.usuarioId()).build())
+            .usuario(User.builder().id(dto.usuarioId()).build())
             .tarea(Tarea.builder().id(dto.tareaId()).build())
             .build();
     }

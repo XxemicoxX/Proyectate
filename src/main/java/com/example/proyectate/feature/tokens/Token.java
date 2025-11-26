@@ -2,7 +2,7 @@ package com.example.proyectate.feature.tokens;
 
 import java.time.LocalDateTime;
 
-import com.example.proyectate.feature.usuarios.Usuarios;
+import com.example.proyectate.feature.users.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,7 +44,7 @@ public class Token {
     private LocalDateTime fechaExpiracion; 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
-    private Usuarios usuario;
+    private User user;
 
     public enum TipoToken {
         BEARER
