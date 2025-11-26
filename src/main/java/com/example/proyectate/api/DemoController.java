@@ -13,13 +13,13 @@ public class DemoController {
     @GetMapping
     @PreAuthorize("user")
     public String sayHello() {
-        return "Hello from secured endpoint";
+        return "Hello USUARIO from secured endpoint";
     }
 
     @GetMapping("admin")
     @PreAuthorize("hasRole('ADMIN')")
     public String sayHelloAdmin() {
-        return "Hello admin from secured endpoint";
+        return "Hello ADMINISTRADOR from secured endpoint";
     }
     
 }

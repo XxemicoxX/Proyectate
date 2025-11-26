@@ -16,41 +16,31 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
-public class EtiquetaControllerTest {
+public class TareaControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void getEtiquetasReturnsOk() throws Exception {
-        mockMvc.perform(get("/api/etiquetas"))
+    public void getTareasReturnsOk() throws Exception {
+        mockMvc.perform(get("/api/tareas"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
     @Test
-    public void insertEtiquetaReturnsOk() throws Exception {
+    public void insertTareaReturnsOk() throws Exception {
         String json = """
-                    {
-                        "nombre": "programacion"
-                    }
-                """;
-        mockMvc.perform(post("/api/etiquetas")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-    }
-
-     @Test
-    public void updateEtiquetaReturnsOk() throws Exception {
-        String json = """
-                    {
-                        "id": 1,
-                        "nombre": "Programacion"
-                    }
-                """;
-        mockMvc.perform(put("/api/etiquetas")
+                {
+                    "titulo": "Nuevo modulo de ropa",
+                    "descripcion": "Agregar seccion para pantalones",
+                    "prioridad": "Alta",
+                    "estado": "Pendiente",
+                    "id_proyecto": 1,
+                    "id_etiqueta": 1
+                }
+                                """;
+        mockMvc.perform(post("/api/tareas")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json))
                 .andExpect(status().isOk())
@@ -58,8 +48,28 @@ public class EtiquetaControllerTest {
     }
 
     @Test
-    public void deleteEtiquetaReturnsOk() throws Exception{
-        mockMvc.perform(delete("/api/etiquetas/1"))
+    public void updateTareaReturnsOk() throws Exception {
+        String json = """
+                    {
+                        "id": 4,
+                        "titulo": "Nuevo modulo de ropa",
+                        "descripcion": "Agregar seccion para pantalones",
+                        "prioridad": "Alta",
+                        "estado": "En proceso",
+                        "id_proyecto": 1,
+                        "id_etiqueta": 1
+                    }
+                """;
+        mockMvc.perform(put("/api/tareas")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    public void deleteTareaReturnsOk() throws Exception {
+        mockMvc.perform(delete("/api/tareas/4"))
                 .andExpect(status().isOk());
     }
 }
