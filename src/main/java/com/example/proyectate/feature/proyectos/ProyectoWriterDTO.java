@@ -1,5 +1,7 @@
 package com.example.proyectate.feature.proyectos;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotBlank;
@@ -11,6 +13,8 @@ public record ProyectoWriterDTO(
      String nombre,
      @NotBlank(message = "Debe tener una descripcion")
      String descripcion,
+     LocalDate fechaInicio,
+     String estado,
      @NotNull
      @JsonProperty("id_usuario")
      Long idUsuario

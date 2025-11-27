@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface TokenRepository extends JpaRepository<Token, Integer>{
 
-    @Query(value = "select t from Token t inner join User u on t.user.id = u.id where u.id = :id and (t.revocado = false or t.expirado = false)")
-    List<Token> tokensValidos(Integer id);
+        @Query(value = "SELECT t FROM Token t JOIN t.idUser u WHERE u.id = :id  AND (t.revocado = false OR t.expirado = false)")
+        List<Token> tokensValidos(Integer id);
 
     Optional<Token> findByToken(String token);
 }

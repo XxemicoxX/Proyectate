@@ -14,6 +14,8 @@ public class ProyectoMapper implements Mapper<Proyecto, ProyectoWriterDTO, Proye
         .id(dto.id())
         .nombre(dto.nombre())
         .descripcion(dto.descripcion())
+        .fechaInicio(dto.fechaInicio())
+        .estado(dto.estado())
         .idUsuario(User.builder().id(dto.id()).build())
         .build();
     }
@@ -24,6 +26,8 @@ public class ProyectoMapper implements Mapper<Proyecto, ProyectoWriterDTO, Proye
        entity.getId(),
        entity.getNombre(),
        entity.getDescripcion(),
+       entity.getFechaInicio(),
+       entity.getEstado(),
        entity.getIdUsuario().getId());
     }
 

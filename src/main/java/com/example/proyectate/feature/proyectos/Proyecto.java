@@ -1,6 +1,8 @@
 package com.example.proyectate.feature.proyectos;
 
 
+import java.time.LocalDate;
+
 import com.example.proyectate.feature.users.User;
 
 import jakarta.persistence.Column;
@@ -27,6 +29,8 @@ public class Proyecto {
     private Long id;
     private String nombre;
     private String descripcion;
+    private LocalDate fechaInicio;
+    private String estado;
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private User idUsuario;
