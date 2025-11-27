@@ -46,7 +46,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable) //Deshabilito el sistema de sesiones
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**","/info/**").permitAll()
+                        .requestMatchers("/auth/**","/info/**","/proyectos/**").permitAll()
                         .requestMatchers("/demo/user/**").hasAnyAuthority("USER", "ADMIN")
                         .requestMatchers("/demo/admin/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated())

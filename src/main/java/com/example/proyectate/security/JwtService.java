@@ -20,8 +20,11 @@ public class JwtService {
     private final JwtConfig jwtConfig;
     private final SecretKey secretKey;
 
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateToken(UserDetails userDetails, Long idUser) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("idUsuario", idUser); // 👈 Se agregar el ID al token
+
+        return generateToken(claims, userDetails);
     }
 
     public String generateToken(
@@ -30,7 +33,9 @@ public class JwtService {
         return buildToken(extraClaims, userDetails, jwtConfig.getTokenExpirationInMillis());
     }
 
-    public String generateRefreshToken(UserDetails userDetails) {
+    public String generateRefreshToken(UserDetails userDetails, Long idUser) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("idUsuario", idUser);
         return buildToken(new HashMap<>(), userDetails, jwtConfig.getRefreshTokenExpirationInMillis());
     }
 
@@ -85,7 +90,7 @@ public class JwtService {
         System.out.println("Token creado: " + claims.getIssuedAt());
         System.out.println("Token expira: " + claims.getExpiration());
         System.out.println("Fecha actual: " + new Date());
-        System.out.println("Milisegundos restantes: " + 
+        System.out.println("Milisegundos restantes: " +
                 (claims.getExpiration().getTime() - System.currentTimeMillis()));
     }
 }

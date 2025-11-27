@@ -19,7 +19,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("api/proyectos")
+@RequestMapping("proyectos")
 @RequiredArgsConstructor
 public class ProyectoApiController {
      private final ProyectoService proyectoService;
@@ -40,9 +40,9 @@ public class ProyectoApiController {
        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
        }
-    }
+    }     
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/crear")
     public ResponseEntity<ProyectoReaderDTO> insertProyecto(@Valid @RequestBody ProyectoWriterDTO proyecto){
        try {
             return ResponseEntity.ok(proyectoService.addProyecto(proyecto));
@@ -52,7 +52,7 @@ public class ProyectoApiController {
     }
 
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/{id}")
     public ResponseEntity<ProyectoReaderDTO> updateProyecto(@Valid @RequestBody ProyectoWriterDTO proyecto){
        try {
             return ResponseEntity.ok(proyectoService.updProyecto(proyecto));

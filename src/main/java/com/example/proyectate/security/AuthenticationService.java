@@ -32,10 +32,8 @@ public class AuthenticationService {
                                 .build();
                 userRepository.save(user);
                 
-                var jwtToken = jwtService.generateToken(new CustomUserDetail(user));
-                //jwtService.printTokenDates(jwtToken);
-                var refreshToken = jwtService.generateRefreshToken(new CustomUserDetail(user));
-                //jwtService.printTokenDates(refreshToken);
+                var jwtToken = jwtService.generateToken(new CustomUserDetail(user), user.getId());
+                var refreshToken = jwtService.generateRefreshToken(new CustomUserDetail(user), user.getId());
                 return new AuthenticationResponse(jwtToken, refreshToken);
         }
 
@@ -43,10 +41,8 @@ public class AuthenticationService {
                 authenticationManager.authenticate(
                                 new UsernamePasswordAuthenticationToken(request.email(), request.contrasena()));
                 var user = userRepository.findByEmail(request.email()).orElseThrow();
-                var jwtToken = jwtService.generateToken(new CustomUserDetail(user));
-                // jwtService.printTokenDates(jwtToken);
-                var refreshToken = jwtService.generateRefreshToken(new CustomUserDetail(user));
-                // jwtService.printTokenDates(refreshToken);
+                var jwtToken = jwtService.generateToken(new CustomUserDetail(user), user.getId());
+                var refreshToken = jwtService.generateRefreshToken(new CustomUserDetail(user), user.getId());
                 return new AuthenticationResponse(jwtToken, refreshToken);
         }
 
@@ -55,7 +51,7 @@ public class AuthenticationService {
                 if (userEmail != null) {
                         var user = userRepository.findByEmail(userEmail).orElseThrow();
                         if (jwtService.isTokenValid(request.refreshToken(), new CustomUserDetail(user))) {
-                                var accessToken = jwtService.generateToken(new CustomUserDetail(user));
+                                var accessToken = jwtService.generateToken(new CustomUserDetail(user), user.getId());
                                 // jwtService.printTokenDates(accessToken);
                                 return new AuthenticationResponse(accessToken, request.refreshToken());
                         }

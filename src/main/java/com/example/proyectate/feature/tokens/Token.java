@@ -44,7 +44,7 @@ public class Token {
     private LocalDateTime fechaExpiracion; 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario")
-    private User user;
+    private User idUser;
 
     public enum TipoToken {
         BEARER
