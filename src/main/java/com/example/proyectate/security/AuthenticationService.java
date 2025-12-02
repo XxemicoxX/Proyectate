@@ -1,7 +1,9 @@
 package com.example.proyectate.security;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,18 +33,30 @@ public class AuthenticationService {
                                 .rol(RolSistema.USER)
                                 .build();
                 userRepository.save(user);
-                
+
                 var jwtToken = jwtService.generateToken(new CustomUserDetail(user), user.getId());
                 var refreshToken = jwtService.generateRefreshToken(new CustomUserDetail(user), user.getId());
                 return new AuthenticationResponse(jwtToken, refreshToken);
         }
 
         public AuthenticationResponse authenticate(AuthenticationRequest request) {
-                authenticationManager.authenticate(
-                                new UsernamePasswordAuthenticationToken(request.email(), request.contrasena()));
-                var user = userRepository.findByEmail(request.email()).orElseThrow();
+
+                // Validar email existente
+                var user = userRepository.findByEmail(request.email())
+                                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+
+                try {
+                        authenticationManager.authenticate(
+                                        new UsernamePasswordAuthenticationToken(
+                                                        request.email(),
+                                                        request.contrasena()));
+                } catch (BadCredentialsException e) {
+                        throw new BadCredentialsException("Contraseña incorrecta");
+                }
+
                 var jwtToken = jwtService.generateToken(new CustomUserDetail(user), user.getId());
                 var refreshToken = jwtService.generateRefreshToken(new CustomUserDetail(user), user.getId());
+
                 return new AuthenticationResponse(jwtToken, refreshToken);
         }
 
