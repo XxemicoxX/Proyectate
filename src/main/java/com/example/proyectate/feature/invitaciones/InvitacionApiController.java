@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.proyectate.security.JwtService;
+import com.example.proyectate.auth.JwtService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

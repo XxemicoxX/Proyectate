@@ -1,4 +1,4 @@
-package com.example.proyectate.security;
+package com.example.proyectate.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

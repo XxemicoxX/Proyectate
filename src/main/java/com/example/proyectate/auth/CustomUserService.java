@@ -1,4 +1,4 @@
-package com.example.proyectate.security;
+package com.example.proyectate.auth;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
