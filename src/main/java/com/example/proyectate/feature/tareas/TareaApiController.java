@@ -60,7 +60,7 @@ public class TareaApiController {
        }
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/crear")
     public ResponseEntity<TareaReaderDTO> insertTarea(@Valid @RequestBody TareaWriterDTO tarea){
        try {
             return ResponseEntity.ok(tareaService.addTarea(tarea));
