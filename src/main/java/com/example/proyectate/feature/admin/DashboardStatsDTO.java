@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class DashboardStatsDTO {
     private Long totalUsuarios;
     private Long totalProyectos;
-    private Long proyectosActivos;
+    private Long proyectosProgeso;
     private Long proyectosCompletados;
 }

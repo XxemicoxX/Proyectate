@@ -20,13 +20,13 @@ public class DashboardService {
     public DashboardStatsDTO getEstadisticas() {
         Long totalUsuarios = userRepository.count();
         Long totalProyectos = proyectoRepository.count();
-        Long proyectosActivos = proyectoRepository.countByEstado("PROGRESO");
+        Long proyectosProgeso = proyectoRepository.countByEstado("PROGRESO");
         Long proyectosCompletados = proyectoRepository.countByEstado("COMPLETADO");
         
         return DashboardStatsDTO.builder()
                 .totalUsuarios(totalUsuarios)
                 .totalProyectos(totalProyectos)
-                .proyectosActivos(proyectosActivos != null ? proyectosActivos : 0L)
+                .proyectosProgeso(proyectosProgeso != null ? proyectosProgeso : 0L)
                 .proyectosCompletados(proyectosCompletados != null ? proyectosCompletados : 0L)
                 .build();
     }
