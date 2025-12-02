@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.query.Param;
 
 @Repository
 public interface ProyectoRepository extends JpaRepository<Proyecto, Long>{
@@ -17,4 +17,9 @@ public interface ProyectoRepository extends JpaRepository<Proyecto, Long>{
         OR up.user.id = :userId
         """)
     List<Proyecto> findProyectosByUserId(@Param("userId") Long userId);
+
+    Long countByEstado(String estado);
+
+    @Query("SELECT p FROM Proyecto p ORDER BY p.fechaInicio DESC")
+    List<Proyecto> findTop10ByOrderByFechaInicioDesc();
 }

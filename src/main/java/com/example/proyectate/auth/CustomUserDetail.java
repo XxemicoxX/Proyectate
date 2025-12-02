@@ -1,4 +1,4 @@
-package com.example.proyectate.security;
+package com.example.proyectate.auth;
 
 import java.util.Collection;
 import java.util.List;

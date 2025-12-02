@@ -1,4 +1,4 @@
-package com.example.proyectate.security;
+package com.example.proyectate.auth;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;

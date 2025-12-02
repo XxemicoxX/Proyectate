@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.proyectate.security.AuthenticationService;
+import com.example.proyectate.auth.AuthenticationService;
 import com.example.proyectate.util.AuthenticationRequest;
 import com.example.proyectate.util.AuthenticationResponse;
 import com.example.proyectate.util.RefreshTokenRequest;
