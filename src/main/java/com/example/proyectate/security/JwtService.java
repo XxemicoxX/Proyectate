@@ -11,6 +11,7 @@ import com.example.proyectate.config.JwtConfig;
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -22,8 +23,8 @@ public class JwtService {
 
     public String generateToken(UserDetails userDetails, Long idUser) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("idUsuario", idUser); //Se agregar el ID al token
-
+        claims.put("idUsuario", idUser); // Se agregar el ID al token
+        claims.put("roles", userDetails.getAuthorities());
         return generateToken(claims, userDetails);
     }
 
@@ -93,4 +94,11 @@ public class JwtService {
         System.out.println("Milisegundos restantes: " +
                 (claims.getExpiration().getTime() - System.currentTimeMillis()));
     }
+
+    public List<String> extractRoles(String token) {
+        Claims claims = extractAllClaims(token);
+        List<Map<String, String>> roles = (List<Map<String, String>>) claims.get("roles");
+        return roles.stream().map(r -> r.get("authority")).toList();
+    }
+
 }
