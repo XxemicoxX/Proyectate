@@ -9,6 +9,7 @@ public record TareaReaderDTO(
           String prioridad,
           String estado,
           @JsonProperty("id_proyecto") Long idProyecto,
-          @JsonProperty("id_etiqueta") Long idEtiqueta) {
+          @JsonProperty("id_etiqueta") Long idEtiqueta,
+          @JsonProperty("id_usuario") Long idUsuario) {
 
 }

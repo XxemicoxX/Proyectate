@@ -18,7 +18,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("api/comentarios")
+@RequestMapping("comentarios")
 @RequiredArgsConstructor
 public class ComentarioApiController {
 
@@ -42,7 +42,7 @@ public class ComentarioApiController {
        }
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/crear")
     public ResponseEntity<ComentarioReaderDTO> insertComentario(@Valid @RequestBody ComentarioWriterDTO comentario){
        try {
             return ResponseEntity.ok(comentarioService.addComentario(comentario));

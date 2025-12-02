@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("api/etiquetas")
+@RequestMapping("etiquetas")
 @RequiredArgsConstructor
 public class EtiquetaApiController {
     private final EtiquetaService etiquetaService;
@@ -44,7 +44,7 @@ public class EtiquetaApiController {
        }
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, value = "/crear")
     public ResponseEntity<EtiquetaReaderDTO> insertEtiqueta(@Valid @RequestBody EtiquetaWriterDTO etiqueta){
        try {
             return ResponseEntity.ok(etiquetaService.addEtiqueta(etiqueta));

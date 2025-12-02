@@ -9,4 +9,5 @@ import java.util.List;
 public interface TareaRepository extends JpaRepository<Tarea, Long> {
     List<Tarea> findByTitulo(String titulo);
     List<Tarea> findByPrioridad(String prioridad);
+    List<Tarea> findByProyectoId(Long proyectoId);
 }

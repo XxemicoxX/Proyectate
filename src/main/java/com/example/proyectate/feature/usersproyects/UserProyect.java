@@ -1,6 +1,5 @@
-package com.example.proyectate.feature.tareas;
+package com.example.proyectate.feature.usersproyects;
 
-import com.example.proyectate.feature.etiquetas.Etiqueta;
 import com.example.proyectate.feature.proyectos.Proyecto;
 import com.example.proyectate.feature.users.User;
 
@@ -11,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,24 +19,22 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class Tarea {
+@NoArgsConstructor
+@Table(name = "usuarios_proyectos")
+public class UserProyect {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_tarea")
+    @Column(name = "id_usuarios_proyectos")
     private Long id;
-    private String titulo;
-    private String descripcion;
-    private String prioridad;
-    private String estado;
+
     @ManyToOne
-    @JoinColumn (name = "id_proyecto")
-    private Proyecto proyecto;
-    @ManyToOne
-    @JoinColumn (name = "id_etiqueta")
-    private Etiqueta etiqueta;
-    @ManyToOne
-    @JoinColumn (name = "id_usuario")
+    @JoinColumn(name = "id_usuario")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "id_proyecto")
+    private Proyecto proyect;
+
+    private String rol;
 }

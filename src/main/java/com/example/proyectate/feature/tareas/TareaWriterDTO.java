@@ -17,6 +17,8 @@ public record TareaWriterDTO(
         @JsonProperty("id_proyecto")
         Long idProyecto,
         @JsonProperty("id_etiqueta")
-        Long idEtiqueta) {
+        Long idEtiqueta,
+        @JsonProperty("id_usuario")
+        Long idUsuario) {
 
 }

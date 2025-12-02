@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.proyectate.feature.etiquetas.Etiqueta;
 import com.example.proyectate.feature.proyectos.Proyecto;
+import com.example.proyectate.feature.users.User;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -21,33 +22,33 @@ public class TareaService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<TareaReaderDTO> getAllTareas(){
+    public List<TareaReaderDTO> getAllTareas() {
         return tareaRepository.findAll().stream().map(tareaMapper::toDto).toList();
     }
 
-    public TareaReaderDTO getTareaById(Long id){
+    public TareaReaderDTO getTareaById(Long id) {
         return tareaMapper.toDto(tareaRepository.findById(id).orElseThrow());
     }
 
-    public List<TareaReaderDTO> getTareaByTitulo(String titulo){
+    public List<TareaReaderDTO> getTareaByTitulo(String titulo) {
         return tareaRepository.findByTitulo(titulo)
-        .stream()
-        .map(tareaMapper::toDto).toList();
+                .stream()
+                .map(tareaMapper::toDto).toList();
     }
 
-   public List<TareaReaderDTO> getTareaByPrioridad(String prioridad){
+    public List<TareaReaderDTO> getTareaByPrioridad(String prioridad) {
         return tareaRepository.findByPrioridad(prioridad)
-        .stream()
-        .map(tareaMapper::toDto).toList();
+                .stream()
+                .map(tareaMapper::toDto).toList();
     }
 
     @Transactional
-    public TareaReaderDTO addTarea(TareaWriterDTO tarea){
-       return save(tarea);
+    public TareaReaderDTO addTarea(TareaWriterDTO tarea) {
+        return save(tarea);
     }
 
     @Transactional
-    public TareaReaderDTO updTarea(TareaWriterDTO tarea) throws Exception{
+    public TareaReaderDTO updTarea(TareaWriterDTO tarea) throws Exception {
         if (!tareaRepository.existsById(tarea.id())) {
             throw new Exception("ID no encontrado");
         }
@@ -55,7 +56,7 @@ public class TareaService {
     }
 
     @Transactional
-    public String deleteTarea(Long id) throws Exception{
+    public String deleteTarea(Long id) throws Exception {
         if (!tareaRepository.existsById(id)) {
             throw new Exception("ID no encontrado");
         }
@@ -63,14 +64,23 @@ public class TareaService {
         return String.format("Tarea eliminada con el ID: %d", id);
     }
 
-    //metodo guardar
-    private TareaReaderDTO save(TareaWriterDTO dto){
+    // metodo guardar
+    private TareaReaderDTO save(TareaWriterDTO dto) {
         Tarea tarea = tareaMapper.toEntity(dto);
         Proyecto proyectoRef = entityManager.getReference(Proyecto.class, dto.idProyecto());
         tarea.setProyecto(proyectoRef);
         Etiqueta etiquetaRef = entityManager.getReference(Etiqueta.class, dto.idEtiqueta());
         tarea.setEtiqueta(etiquetaRef);
+        User usuarioRef = entityManager.getReference(User.class, dto.idUsuario());
+        tarea.setUser(usuarioRef);
         return tareaMapper.toDto(tareaRepository.save(tarea));
     }
-    
+
+    public List<TareaReaderDTO> getTareasByProyectoId(Long proyectoId) {
+        return tareaRepository.findByProyectoId(proyectoId)
+                .stream()
+                .map(tareaMapper::toDto)
+                .toList();
+    }
+
 }

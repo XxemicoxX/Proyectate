@@ -22,7 +22,7 @@ public class JwtService {
 
     public String generateToken(UserDetails userDetails, Long idUser) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("idUsuario", idUser); //Se agregar el ID al token
+        claims.put("idUsuario", idUser); // Se agregar el ID al token
 
         return generateToken(claims, userDetails);
     }
@@ -92,5 +92,20 @@ public class JwtService {
         System.out.println("Fecha actual: " + new Date());
         System.out.println("Milisegundos restantes: " +
                 (claims.getExpiration().getTime() - System.currentTimeMillis()));
+    }
+
+    // Agregar este método a tu JwtService
+    public Long extractUserId(String token) {
+        Claims claims = extractAllClaims(token);
+        // Extraer el claim "idUsuario" que agregaste al generar el token
+        Object userId = claims.get("idUsuario");
+
+        if (userId instanceof Integer) {
+            return ((Integer) userId).longValue();
+        } else if (userId instanceof Long) {
+            return (Long) userId;
+        }
+
+        throw new RuntimeException("No se pudo extraer el ID del usuario del token");
     }
 }
