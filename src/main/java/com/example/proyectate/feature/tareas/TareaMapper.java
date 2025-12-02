@@ -12,16 +12,25 @@ public class TareaMapper implements Mapper<Tarea, TareaWriterDTO, TareaReaderDTO
 
     @Override
     public Tarea toEntity(TareaWriterDTO dto) {
-        return Tarea.builder()
-        .id(dto.id())
-        .titulo(dto.titulo())
-        .descripcion(dto.descripcion())
-        .prioridad(dto.prioridad())
-        .estado(dto.estado())
-        .etiqueta(Etiqueta.builder().id(dto.idEtiqueta()).build())
-        .proyecto(Proyecto.builder().id(dto.idProyecto()).build())
-        .user(User.builder().id(dto.idUsuario()).build())
-        .build();
+        Tarea.TareaBuilder builder = Tarea.builder()
+            .id(dto.id())
+            .titulo(dto.titulo())
+            .descripcion(dto.descripcion())
+            .prioridad(dto.prioridad())
+            .estado(dto.estado())
+            .proyecto(Proyecto.builder().id(dto.idProyecto()).build());
+        
+        // Solo agregar etiqueta si existe
+        if (dto.idEtiqueta() != null) {
+            builder.etiqueta(Etiqueta.builder().id(dto.idEtiqueta()).build());
+        }
+        
+        // Solo agregar usuario si existe
+        if (dto.idUsuario() != null) {
+            builder.user(User.builder().id(dto.idUsuario()).build());
+        }
+        
+        return builder.build();
     }
 
     @Override
@@ -30,11 +39,11 @@ public class TareaMapper implements Mapper<Tarea, TareaWriterDTO, TareaReaderDTO
             entity.getId(),
             entity.getTitulo(),
             entity.getDescripcion(),
-            entity.getEstado(),
             entity.getPrioridad(),
-            entity.getProyecto().getId(),
-            entity.getEtiqueta().getId(),
-            entity.getUser().getId());
+            entity.getEstado(),
+            entity.getProyecto() != null ? entity.getProyecto().getId() : null,
+            entity.getEtiqueta() != null ? entity.getEtiqueta().getId() : null,
+            entity.getUser() != null ? entity.getUser().getId() : null
+        );
     }
-
 }
