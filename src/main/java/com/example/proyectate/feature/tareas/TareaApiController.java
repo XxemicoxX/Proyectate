@@ -1,5 +1,6 @@
 package com.example.proyectate.feature.tareas;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -64,10 +65,7 @@ public class TareaApiController {
      public ResponseEntity<List<TareaReaderDTO>> getByProyectoId(@PathVariable Long proyectoId) {
           try {
                List<TareaReaderDTO> tareas = tareaService.getTareasByProyectoId(proyectoId);
-               if (tareas.isEmpty()) {
-                    return ResponseEntity.noContent().build();
-               }
-               return ResponseEntity.ok(tareas);
+               return ResponseEntity.ok(tareas.isEmpty() ? Collections.emptyList() : tareas);
           } catch (Exception e) {
                throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
           }

@@ -1,5 +1,6 @@
 package com.example.proyectate.feature.usersproyects;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -111,12 +112,14 @@ public class UserProyectApiController {
     public ResponseEntity<List<UserProyectDetailDTO>> getUserProyectDetails(@PathVariable Long proyectoId) {
         try {
             List<UserProyectDetailDTO> result = userProyectService.getUserProyectDetailsById(proyectoId);
+            // NO lanzar error si está vacío, devolver lista vacía
             if (result.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No hay usuarios en este proyecto");
+                return ResponseEntity.ok(Collections.emptyList());
             }
+
             return ResponseEntity.ok(result);
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }
