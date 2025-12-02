@@ -1,6 +1,7 @@
 package com.example.proyectate.feature.comentarios;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.example.proyectate.feature.tareas.Tarea;
 import com.example.proyectate.feature.users.User;
@@ -27,12 +28,17 @@ public class Comentario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_comentario")
     private Long id;
+    
     @Column(nullable = false, length = 150)
     private String contenido;
-    private LocalDate fecha_creacion;
+    
+    @Column(name = "fecha_creacion")
+    private LocalDateTime fechaCreacion; // Cambiado a LocalDateTime para incluir hora
+    
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private User usuario;
+    
     @ManyToOne
     @JoinColumn(name = "id_tarea")
     private Tarea tarea;

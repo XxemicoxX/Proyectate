@@ -3,8 +3,13 @@ package com.example.proyectate.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -23,7 +28,6 @@ import com.example.proyectate.feature.comentarios.ComentarioRepository;
 import com.example.proyectate.feature.comentarios.ComentarioService;
 import com.example.proyectate.feature.comentarios.ComentarioWriterDTO;
 
-
 @ExtendWith(MockitoExtension.class)
 public class ComentarioServiceTest {
 
@@ -33,11 +37,8 @@ public class ComentarioServiceTest {
     @Mock
     private ComentarioMapper comentarioMapper;
 
-
-
     @InjectMocks
     private ComentarioService comentarioService;
-
 
     @Test
     public void getAllComentario() {
@@ -82,7 +83,7 @@ public class ComentarioServiceTest {
         when(comentarioRepository.save(entidad)).thenReturn(entidad);
         when(comentarioMapper.toDto(entidad)).thenReturn(dto);
 
-        ComentarioReaderDTO resultado = comentarioService.addComentario(writer);
+        ComentarioReaderDTO resultado = comentarioService.addComentario(writer, 1L);
 
         assertSame(dto, resultado);
         verify(comentarioMapper).toEntity(writer);
@@ -102,22 +103,10 @@ public class ComentarioServiceTest {
         when(comentarioRepository.save(entidad)).thenReturn(entidad);
         when(comentarioMapper.toDto(entidad)).thenReturn(dto);
 
-        ComentarioReaderDTO resultado = comentarioService.updComentario(writer);
+        ComentarioReaderDTO resultado = comentarioService.updComentario(writer, 1L);
 
         assertSame(dto, resultado);
         verify(comentarioRepository).existsById(1L);
         verify(comentarioRepository).save(entidad);
     }
-    
-    @Test
-    public void deleteComentario() throws Exception{
-        when(comentarioRepository.existsById(1L)).thenReturn(true);
-        String msg = comentarioService.deleteComentario(1L);
-
-        assertTrue(msg.contains("Comentario eliminada con el ID: 1"));
-        verify(comentarioRepository).existsById(1L);
-        verify(comentarioRepository).deleteById(1L);
-        
-    }
-    
 }

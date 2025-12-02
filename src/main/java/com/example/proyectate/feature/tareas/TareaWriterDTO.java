@@ -9,7 +9,7 @@ public record TareaWriterDTO(
         Long id,
         @NotBlank(message = "Debe tener un titulo")
         String titulo,
-        String descripcion, // Quitar @NotBlank para permitir descripciones vacías
+        String descripcion,
         @NotBlank(message = "La prioridad de la tarea es necesaria")
         String prioridad,
         @NotBlank
@@ -18,8 +18,8 @@ public record TareaWriterDTO(
         @NotNull(message = "El proyecto es obligatorio")
         Long idProyecto,
         @JsonProperty("id_etiqueta")
-        Long idEtiqueta, // Opcional - sin validación
+        Long idEtiqueta,
         @JsonProperty("id_usuario")
-        Long idUsuario // Opcional - sin validación
+        Long idUsuario
 ) {
 }

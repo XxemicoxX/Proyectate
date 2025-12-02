@@ -65,7 +65,10 @@ public class TareaApiController {
      public ResponseEntity<List<TareaReaderDTO>> getByProyectoId(@PathVariable Long proyectoId) {
           try {
                List<TareaReaderDTO> tareas = tareaService.getTareasByProyectoId(proyectoId);
-               return ResponseEntity.ok(tareas.isEmpty() ? Collections.emptyList() : tareas);
+               if (tareas.isEmpty()) {
+                    return ResponseEntity.noContent().build();
+               }
+               return ResponseEntity.ok(tareas);
           } catch (Exception e) {
                throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
           }
@@ -110,4 +113,5 @@ public class TareaApiController {
                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
           }
      }
+
 }
