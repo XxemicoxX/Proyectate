@@ -106,4 +106,17 @@ public class UserProyectApiController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
+
+    @GetMapping("/proyecto/{proyectoId}/detalles")
+    public ResponseEntity<List<UserProyectDetailDTO>> getUserProyectDetails(@PathVariable Long proyectoId) {
+        try {
+            List<UserProyectDetailDTO> result = userProyectService.getUserProyectDetailsById(proyectoId);
+            if (result.isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No hay usuarios en este proyecto");
+            }
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
 }

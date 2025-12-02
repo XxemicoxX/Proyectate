@@ -71,4 +71,20 @@ public class UserProyectService {
         return userProyectMapper.toDto(
                 userProyectRepository.save(userProyectMapper.toEntity(userProyect)));
     }
+
+    // NUEVO MÉTODO
+    public List<UserProyectDetailDTO> getUserProyectDetailsById(Long proyectoId) {
+        List<Object[]> results = userProyectRepository.findUserProyectDetailsById(proyectoId);
+        
+        return results.stream()
+                .map(row -> new UserProyectDetailDTO(
+                        ((Number) row[0]).longValue(),     // id
+                        ((Number) row[1]).longValue(),     // idUsuario
+                        ((Number) row[2]).longValue(),     // idProyecto
+                        (String) row[3],                   // rol
+                        (String) row[4],                   // nombreUsuario
+                        (String) row[5]                    // emailUsuario
+                ))
+                .toList();
+    }
 }

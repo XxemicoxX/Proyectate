@@ -20,21 +20,28 @@ public class ProyectoService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<ProyectoReaderDTO> getAllProyectos(){
+    public List<ProyectoReaderDTO> getProyectosByUserId(Long userId) {
+        List<Proyecto> proyectos = proyectoRepository.findProyectosByUserId(userId);
+        return proyectos.stream()
+                .map(proyectoMapper::toDto)
+                .toList();
+    }
+
+    public List<ProyectoReaderDTO> getAllProyectos() {
         return proyectoRepository.findAll().stream().map(proyectoMapper::toDto).toList();
     }
 
-    public ProyectoReaderDTO getProyectoById(Long id){
+    public ProyectoReaderDTO getProyectoById(Long id) {
         return proyectoMapper.toDto(proyectoRepository.findById(id).orElseThrow());
     }
 
     @Transactional
-    public ProyectoReaderDTO addProyecto(ProyectoWriterDTO proyecto){
-       return save(proyecto);
+    public ProyectoReaderDTO addProyecto(ProyectoWriterDTO proyecto) {
+        return save(proyecto);
     }
 
     @Transactional
-    public ProyectoReaderDTO updProyecto(ProyectoWriterDTO proyecto) throws Exception{
+    public ProyectoReaderDTO updProyecto(ProyectoWriterDTO proyecto) throws Exception {
         if (!proyectoRepository.existsById(proyecto.id())) {
             throw new Exception("ID no encontrado");
         }
@@ -42,7 +49,7 @@ public class ProyectoService {
     }
 
     @Transactional
-    public String deleteProyecto(Long id) throws Exception{
+    public String deleteProyecto(Long id) throws Exception {
         if (!proyectoRepository.existsById(id)) {
             throw new Exception("ID no encontrado");
         }
@@ -50,8 +57,8 @@ public class ProyectoService {
         return String.format("proyecto eliminada con el ID: %d", id);
     }
 
-    //metodo guardar
-    private ProyectoReaderDTO save(ProyectoWriterDTO proyectoDTO){
+    // metodo guardar
+    private ProyectoReaderDTO save(ProyectoWriterDTO proyectoDTO) {
         Proyecto proyecto = proyectoMapper.toEntity(proyectoDTO);
         User usuarioRef = entityManager.getReference(User.class, proyectoDTO.idUsuario());
         proyecto.setIdUsuario(usuarioRef);

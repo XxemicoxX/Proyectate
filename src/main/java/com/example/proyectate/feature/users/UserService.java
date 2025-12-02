@@ -44,7 +44,6 @@ public class UserService {
         return String.format("Usuario eliminada con el ID: %d", id);
     }
 
-
     //metodo guardar
     private UserReaderDTO save(UserWriterDTO usuario){
         return usuarioMapper.toDto(usuarioRepository.save(usuarioMapper.toEntity(usuario)));
